@@ -1,12 +1,10 @@
-# Use Alpine base image
-FROM alpine:latest
+# Use Debian as the base image
+FROM debian:latest
 
-# Update APK repositories and install necessary packages
-RUN apk update && \
-    apk add --no-cache bash && \
-    apk add --no-cache fortune-mod && \
-    apk add --no-cache cowsay && \
-    apk add --no-cache netcat-openbsd
+# Install required packages
+RUN apt-get update && \
+    apt-get install -y bash fortune cowsay netcat && \
+    apt-get clean
 
-# Set the default command to run fortune and cowsay commands
+# Set default command
 CMD ["bash", "-c", "fortune | cowsay"]
