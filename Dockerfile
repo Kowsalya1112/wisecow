@@ -1,11 +1,22 @@
-FROM alpine:latest
+# Use Debian as the base image
+FROM debian:latest
 
-RUN apk add --no-cache bash fortune-mod cowsay netcat-openbsd
+# Install required packages
+RUN apt-get update && \
+    apt-get install -y fortune cowsay netcat && \
+    apt-get clean
 
-COPY wisecow.sh /wisecow.sh
+# Copy the script into the container
+COPY wisecow.sh /app/wisecow.sh
 
-RUN chmod +x /wisecow.sh
+# Make the script executable
+RUN chmod +x /app/wisecow.sh
 
+# Set working directory
+WORKDIR /app
+
+# Expose port (change 3000 to whatever you're using)
 EXPOSE 3000
 
-CMD ["/wisecow.sh"]
+# Run the script
+CMD ["./wisecow.sh"]
