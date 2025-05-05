@@ -1,20 +1,19 @@
-# Use Debian as the base image
-FROM debian:bullseye
+# Use an Alpine-based image
+FROM alpine:latest
 
-# Install required packages
-RUN apt-get update && apt-get install -y fortune cowsay netcat && apt-get clean
+# Install necessary dependencies
+RUN apk update && \
+    apk add --no-cache \
+    bash \
+    fortune \
+    cowsay \
+    netcat-openbsd
 
-# Copy the script into the container
-COPY wisecow.sh /app/wisecow.sh
-
-# Make the script executable
-RUN chmod +x /app/wisecow.sh
-
-# Set working directory
+# Set up the working directory
 WORKDIR /app
 
-# Expose port (change 3000 to whatever you're using)
-EXPOSE 3000
+# Copy your application code into the container
+COPY . .
 
-# Run the script
+# Set the default command to run your application (update as needed)
 CMD ["bash", "-c", "fortune | cowsay"]
