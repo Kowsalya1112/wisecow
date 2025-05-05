@@ -1,10 +1,8 @@
 # Use Debian as the base image
-FROM ubuntu:20.04
+FROM debian:bullseye
 
 # Install required packages
-RUN apt-get update && apt-get
-install -y fortune cowsay netcat
-&& apt-get clean
+RUN apt-get update && apt-get install -y fortune cowsay netcat && apt-get clean
 
 # Copy the script into the container
 COPY wisecow.sh /app/wisecow.sh
