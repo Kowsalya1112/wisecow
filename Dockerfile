@@ -9,11 +9,5 @@ RUN apk update && \
     cowsay \
     netcat-openbsd
 
-# Set up the working directory
-WORKDIR /app
-
-# Copy your application code into the container
-COPY . .
-
-# Set the default command to run your application (update as needed)
+# Set the default command to run the fortune and cowsay commands
 CMD ["bash", "-c", "fortune | cowsay"]
