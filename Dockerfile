@@ -1,10 +1,10 @@
 # Use Debian as the base image
-FROM debian:latest
+FROM ubuntu:20.04
 
 # Install required packages
-RUN apt-get update && \
-    apt-get install -y fortune cowsay netcat && \
-    apt-get clean
+RUN apt-get update && apt-get
+install -y fortune cowsay netcat
+&& apt-get clean
 
 # Copy the script into the container
 COPY wisecow.sh /app/wisecow.sh
@@ -19,4 +19,4 @@ WORKDIR /app
 EXPOSE 3000
 
 # Run the script
-CMD ["./wisecow.sh"]
+CMD ["bash", "-c", "fortune | cowsay"]
